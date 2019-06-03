@@ -396,7 +396,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: 23 + 
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicAdd)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
@@ -408,7 +408,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: 5.21
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicDecimal)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
@@ -421,7 +421,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: sin(0) [Degree]
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicSin)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
@@ -432,7 +432,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: cos(0) [Degree]
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicCos)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
@@ -443,7 +443,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: tan(0) [Radian]
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicTan)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
