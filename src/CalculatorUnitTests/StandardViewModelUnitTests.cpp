@@ -485,7 +485,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: sqrt(4)
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasicTan)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicSqrt)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
@@ -496,7 +496,7 @@ namespace CalculatorUnitTests
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
         /// Change into Scientific Mode Expression: sqrt(-1)
-        TEST_METHOD(ButtonPressedExpressionScientificModeBasicTan)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicInvSqrt)
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
