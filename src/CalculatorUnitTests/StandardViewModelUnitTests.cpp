@@ -407,6 +407,18 @@ namespace CalculatorUnitTests
             };
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
+        /// Change into Scientific Mode Expression: 4 * 3 
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicAdd)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Four, L"4", L"" },
+                { NumbersAndOperatorsEnum::Mulitply, L"4", L"4 * " },
+                { NumbersAndOperatorsEnum::Three, L"3", L"4 * " },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
         /// Change into Scientific Mode Expression: 5.21
         TEST_METHOD(ButtonPressedExpressionScientificModeBasicDecimal)
         {
@@ -416,6 +428,24 @@ namespace CalculatorUnitTests
                 { NumbersAndOperatorsEnum::Decimal, L"5" + std::wstring(m_decimalSeparator->Data()), L"" },
                 { NumbersAndOperatorsEnum::Two, L"5" + std::wstring(m_decimalSeparator->Data()) + L"2", L"" },
                 { NumbersAndOperatorsEnum::One, L"5" + std::wstring(m_decimalSeparator->Data()) + L"21", L"" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: 6.11 + 1.01
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicDecimalAdd)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Six, L"6", L"" },
+                { NumbersAndOperatorsEnum::Decimal, L"6" + std::wstring(m_decimalSeparator->Data()), L"" },
+                { NumbersAndOperatorsEnum::One, L"6" + std::wstring(m_decimalSeparator->Data()) + L"1", L"" },
+                { NumbersAndOperatorsEnum::One, L"6" + std::wstring(m_decimalSeparator->Data()) + L"11", L"" },
+                { NumbersAndOperatorsEnum::Add, L"6" + std::wstring(m_decimalSeparator->Data()) + L"11", L"6" + std::wstring(m_decimalSeparator->Data()) + L"11 + " },
+                { NumbersAndOperatorsEnum::One, L"1", L"6" + std::wstring(m_decimalSeparator->Data()) + L"11 + " },
+                { NumbersAndOperatorsEnum::Decimal, L"1" + std::wstring(m_decimalSeparator->Data()), L"6" + std::wstring(m_decimalSeparator->Data()) + L"11 + " },
+                { NumbersAndOperatorsEnum::Zero, L"1" + std::wstring(m_decimalSeparator->Data()) + L"0", L"6" + std::wstring(m_decimalSeparator->Data()) + L"11 + " },
+                { NumbersAndOperatorsEnum::One, L"1" + std::wstring(m_decimalSeparator->Data()) + L"01", L"6" + std::wstring(m_decimalSeparator->Data()) + L"11 + " },
                 { NumbersAndOperatorsEnum::None, L"", L"" }
             };
             ValidateViewModelByCommands(m_viewModel, items, true);
@@ -447,9 +477,32 @@ namespace CalculatorUnitTests
         {
             TESTITEM items[] = {
                 { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
-                { NumbersAndOperatorsEnum::Radians, L"0", L""}
+                { NumbersAndOperatorsEnum::Radians, L"0", L""},
                 { NumbersAndOperatorsEnum::Zero, L"0", L"" },
                 { NumbersAndOperatorsEnum::Tan, L"0", L"tanr(0)" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: sqrt(4)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicTan)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Four, L"4", L"" },
+                { NumbersAndOperatorsEnum::Sqrt, L"2", L"sqrt(4)" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: sqrt(-1)
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasicTan)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::One, L"1", L"" },
+                { NumbersAndOperatorsEnum::Negate, L"-1", L"" },
+                { NumbersAndOperatorsEnum::Sqrt, L"Invalid input", L"sqrt(-1)" },
                 { NumbersAndOperatorsEnum::None, L"", L"" }
             };
             ValidateViewModelByCommands(m_viewModel, items, true);
