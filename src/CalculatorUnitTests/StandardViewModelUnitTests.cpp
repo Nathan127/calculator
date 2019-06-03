@@ -384,6 +384,76 @@ namespace CalculatorUnitTests
             };
             ValidateViewModelByCommands(m_viewModel, items, true);
         }
+        /// Change into Scientific Mode Expression: 12
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::One, L"1", L"" },
+                { NumbersAndOperatorsEnum::Two, L"12", L"" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: 23 + 
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Two, L"2", L"" },
+                { NumbersAndOperatorsEnum::Three, L"23", L"" },
+                { NumbersAndOperatorsEnum::Add, L"23", L"23 + " },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: 5.21
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Five, L"5", L"" },
+                { NumbersAndOperatorsEnum::Decimal, L"5" + std::wstring(m_decimalSeparator->Data()), L"" },
+                { NumbersAndOperatorsEnum::Two, L"5" + std::wstring(m_decimalSeparator->Data()) + L"2", L"" },
+                { NumbersAndOperatorsEnum::One, L"5" + std::wstring(m_decimalSeparator->Data()) + L"21", L"" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: sin(0) [Degree]
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Zero, L"0", L"" },
+                { NumbersAndOperatorsEnum::Sin, L"0", L"sind(0)" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: cos(0) [Degree]
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Zero, L"0", L"" },
+                { NumbersAndOperatorsEnum::Cos, L"1", L"cosd(0)" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
+        /// Change into Scientific Mode Expression: tan(0) [Radian]
+        TEST_METHOD(ButtonPressedExpressionScientificModeBasic)
+        {
+            TESTITEM items[] = {
+                { NumbersAndOperatorsEnum::IsScientificMode, L"0", L"" },
+                { NumbersAndOperatorsEnum::Radians, L"0", L""}
+                { NumbersAndOperatorsEnum::Zero, L"0", L"" },
+                { NumbersAndOperatorsEnum::Tan, L"0", L"tanr(0)" },
+                { NumbersAndOperatorsEnum::None, L"", L"" }
+            };
+            ValidateViewModelByCommands(m_viewModel, items, true);
+        }
 
         ///
         /// Paste tests
