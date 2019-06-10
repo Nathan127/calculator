@@ -59,25 +59,52 @@ namespace CalculationManager
         }
     }
 
+    /// <summary>
+    //Internally sets the error to the input parameter
+
+
     void CalculatorManager::SetIsInError(bool isError)
     {
         m_displayCallback->SetIsInError(isError);
     }
+
+
+    /// <summary>
+    //Internally handle the "invalid input"
+
 
     void CalculatorManager::DisplayPasteError()
     {
         m_currentCalculatorEngine->DisplayError(CALC_E_DOMAIN /*code for "Invalid input" error*/);
     }
 
+
+    /// <summary>
+    //Internally calls the function MaxDigitsReached to signify
+    //maximum number of digits
+
     void CalculatorManager::MaxDigitsReached()
     {
         m_displayCallback->MaxDigitsReached();
     }
 
+
+    ///<summary>
+    //Internally note that a binary operator has been recieved
+
     void CalculatorManager::BinaryOperatorReceived()
     {
         m_displayCallback->BinaryOperatorReceived();
     }
+
+
+ /// <summary>
+    /// Call the callback function using passed in IDisplayHelper.
+    /// Used to set the expression display value on ViewModel
+    /// </summary>
+    /// <param name="expressionString">wstring representing expression to be displayed</param>
+
+
 
     void CalculatorManager::MemoryItemChanged(unsigned int indexOfMemory)
     {
