@@ -387,6 +387,47 @@ String^ StandardCalculatorViewModel::GetCalculatorExpressionAutomationName()
     return GetLocalizedStringFormat(m_expressionAutomationNameFormat, expression);
 }
 
+
+void StandardCalculatorViewModel::PushNewValueMemorizedNumbers(wstring stringValue)
+{
+
+    // Make a new memoryItem object and set as first in existing memory
+    MemoryItemViewModel^ memorySlot = ref new MemoryItemViewModel(this);
+    memorySlot->Position = 0;
+
+    //initialize the new memoryItem with the new string value
+    localizer.LocalizeDisplayValue(&stringValue);
+    memorySlot->Value = Utils::LRO + ref new String(stringValue.c_str()) + Utils::PDF;
+
+    // actually add the new memoryItem to the real Memorized numbers stack
+    MemorizedNumbers->InsertAt(0, memorySlot);
+    IsMemoryEmpty = false;
+
+    // Update the slot position for the rest of the slots by moving them up one position
+    for (unsigned int i = 1; i < MemorizedNumbers->Size; i++)
+    {
+        MemorizedNumbers->GetAt(i)->Position++;
+    }
+}
+
+
+void StandardCalculatorViewModel::UpdateMemorizedNumbers(const vector<wstring>& newMemorizedNumbers) 
+{
+    // Go through all of the newly added numbers and push onto actual MemorizedNumbers stack
+    while (newMemorizedNumbers.size() > MemorizedNumbers->Size)
+    {
+        // calcuate the new memvalue postion, should be reciving the first added item at the top of the stack.
+        // Then grab the new value at that postion as a modified string class
+        size_t newValuePosition = newMemorizedNumbers.size() - MemorizedNumbers->Size - 1;
+        auto stringValue = newMemorizedNumbers.at(newValuePosition);
+        
+        // Push the newstring value onto actual memorized numbers stack
+        PushNewValueMemorizedNumbers(stringValue);
+    }
+}
+
+
+//editing this function
 void StandardCalculatorViewModel::SetMemorizedNumbers(const vector<wstring>& newMemorizedNumbers)
 {
     const auto& localizer = LocalizationSettings::GetInstance();
@@ -398,25 +439,8 @@ void StandardCalculatorViewModel::SetMemorizedNumbers(const vector<wstring>& new
     // A new value is added to the memory
     else if (newMemorizedNumbers.size() > MemorizedNumbers->Size)
     {
-        while (newMemorizedNumbers.size() > MemorizedNumbers->Size)
-        {
-            size_t newValuePosition = newMemorizedNumbers.size() - MemorizedNumbers->Size - 1;
-            auto stringValue = newMemorizedNumbers.at(newValuePosition);
-
-            MemoryItemViewModel^ memorySlot = ref new MemoryItemViewModel(this);
-            memorySlot->Position = 0;
-            localizer.LocalizeDisplayValue(&stringValue);
-            memorySlot->Value = Utils::LRO + ref new String(stringValue.c_str()) + Utils::PDF;
-
-            MemorizedNumbers->InsertAt(0, memorySlot);
-            IsMemoryEmpty = false;
-
-            // Update the slot position for the rest of the slots
-            for (unsigned int i = 1; i < MemorizedNumbers->Size; i++)
-            {
-                MemorizedNumbers->GetAt(i)->Position++;
-            }
-        }
+        // go through and update the newly added numbers
+        UpdateMemorizedNumbers(newMemorizedNumbers);
     }
     else if (newMemorizedNumbers.size() == MemorizedNumbers->Size) // Either M+ or M-
     {

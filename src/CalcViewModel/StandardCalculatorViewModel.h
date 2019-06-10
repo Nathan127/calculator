@@ -313,6 +313,8 @@ namespace CalculatorApp
 
         private:
             void SetMemorizedNumbers(const std::vector<std::wstring>& memorizedNumbers);
+            void UpdateMemorizedNumbers(const std::vector<std::wstring>& newMemorizedNumbers) 
+            void PushNewValueMemorizedNumbers(std::wstring stringValue);
             void UpdateProgrammerPanelDisplay();
             void HandleUpdatedOperandData(CalculationManager::Command cmdenum);
             NumbersAndOperatorsEnum ConvertIntegerToNumbersAndOperatorsEnum(unsigned int parameter);
