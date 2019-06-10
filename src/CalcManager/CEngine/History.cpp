@@ -12,7 +12,8 @@ constexpr int ASCII_0 = 48;
 using namespace std;
 using namespace CalcEngine;
 
-namespace {
+namespace
+{
     void IFT(ResultCode hr)
     {
         if (FAILED(hr))
@@ -48,6 +49,7 @@ CHistoryCollector::CHistoryCollector(ICalcDisplay *pCalcDisplay, std::shared_ptr
     ReinitHistory();
 }
 
+//Deconstructor
 CHistoryCollector::~CHistoryCollector()
 {
     m_pHistoryDisplay = nullptr;
@@ -59,6 +61,7 @@ CHistoryCollector::~CHistoryCollector()
     }
 }
 
+//Adding operator to history
 void CHistoryCollector::AddOpndToHistory(wstring_view numStr, Rational const& rat, bool fRepetition)
 {
     std::shared_ptr<CalculatorVector<int>> commands = std::make_shared<CalculatorVector<int>>();
@@ -112,6 +115,7 @@ void CHistoryCollector::AddOpndToHistory(wstring_view numStr, Rational const& ra
     m_lastBinOpStartIndex = -1;
 }
 
+//Removing last Operation from History
 void CHistoryCollector::RemoveLastOpndFromHistory()
 {
     TruncateEquationSzFromIch(m_lastOpStartIndex);
@@ -120,6 +124,7 @@ void CHistoryCollector::RemoveLastOpndFromHistory()
     // This will not restore the m_lastBinOpStartIndex, as it isn't possible to remove that also later
 }
 
+//Adding Binary operator to History
 void CHistoryCollector::AddBinOpToHistory(int nOpCode, bool fNoRepetition)
 {
     int iCommandEnd = AddCommand(std::make_shared<CBinaryCommand>(nOpCode));
@@ -135,9 +140,12 @@ void CHistoryCollector::AddBinOpToHistory(int nOpCode, bool fNoRepetition)
     m_lastOpStartIndex = -1;
 }
 
-// This is expected to be called when a binary op in the last say 1+2+ is changing to another one say 1+2* (+ changed to *)
-// It needs to know by this change a Precedence inversion happened. i.e. previous op was lower or equal to its previous op, but the new
-// one isn't. (Eg. 1*2* to 1*2^). It can add explicit brackets to ensure the precedence is inverted. (Eg. (1*2) ^)
+// This is expected to be called when a binary op in the last
+// say 1+2+ is changing to another one say 1+2* (+ changed to *)
+// It needs to know by this change a Precedence inversion happened.
+// i.e. previous op was lower or equal to its previous op, but the new
+// one isn't. (Eg. 1*2* to 1*2^). It can add explicit brackets
+// to ensure the precedence is inverted. (Eg. (1*2) ^)
 void CHistoryCollector::ChangeLastBinOp(int nOpCode, bool fPrecInvToHigher)
 {
     TruncateEquationSzFromIch(m_lastBinOpStartIndex);
@@ -148,6 +156,7 @@ void CHistoryCollector::ChangeLastBinOp(int nOpCode, bool fPrecInvToHigher)
     AddBinOpToHistory(nOpCode);
 }
 
+//Adding last Operator to start
 void CHistoryCollector::PushLastOpndStart(int ichOpndStart)
 {
     int ich = (ichOpndStart == -1) ? m_lastOpStartIndex : ichOpndStart;
@@ -158,6 +167,7 @@ void CHistoryCollector::PushLastOpndStart(int ichOpndStart)
     }
 }
 
+//Removing last Operator from start
 void CHistoryCollector::PopLastOpndStart()
 {
     if (m_curOperandIndex > 0)
@@ -166,6 +176,7 @@ void CHistoryCollector::PopLastOpndStart()
     }
 }
 
+//Brace formatting in history view
 void CHistoryCollector::AddOpenBraceToHistory()
 {
     AddCommand(std::make_shared<CParentheses>(IDC_OPENP));
@@ -176,6 +187,7 @@ void CHistoryCollector::AddOpenBraceToHistory()
     m_lastBinOpStartIndex = -1;
 }
 
+//Brace formatting in history view
 void CHistoryCollector::AddCloseBraceToHistory()
 {
     AddCommand(std::make_shared<CParentheses>(IDC_CLOSEP));
@@ -187,6 +199,7 @@ void CHistoryCollector::AddCloseBraceToHistory()
     m_bLastOpndBrace = true;
 }
 
+//Brace formatting in history view
 void CHistoryCollector::EnclosePrecInversionBrackets()
 {
     // Top of the Opnd starts index or 0 is nothing is in top
@@ -318,6 +331,7 @@ void CHistoryCollector::CompleteHistoryLine(wstring_view numStr)
     ReinitHistory();
 }
 
+// Responsible for clearing the history display
 void CHistoryCollector::ClearHistoryLine(wstring_view errStr)
 {
     if (errStr.empty()) // in case of error let the display stay as it is
@@ -396,6 +410,7 @@ void CHistoryCollector::SetExpressionDisplay()
 
 }
 
+//Adds command to history
 int CHistoryCollector::AddCommand(_In_ const std::shared_ptr<IExpressionCommand> & spCommand)
 {
     if (m_spCommands == nullptr)
@@ -448,6 +463,7 @@ void CHistoryCollector::UpdateHistoryExpression(uint32_t radix, int32_t precisio
     SetExpressionDisplay();
 }
 
+//Sets decimal symbol in history
 void CHistoryCollector::SetDecimalSymbol(wchar_t decimalSymbol)
 {
     m_decimalSymbol = decimalSymbol;
