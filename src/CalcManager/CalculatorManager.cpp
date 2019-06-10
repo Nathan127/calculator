@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
 #include "pch.h"
@@ -622,10 +622,10 @@ namespace CalculationManager
     }
 
     /// <summary>
-/// Helper function that selects a memory from the vector and set it to CCalcEngine
-/// Saved RAT number needs to be copied and passed in, as CCalcEngine destroyed the passed in RAT
-/// </summary>
-/// <param name="indexOfMemory">Index of the target memory</param>
+    /// Helper function that selects a memory from the vector and set it to CCalcEngine
+    /// Saved RAT number needs to be copied and passed in, as CCalcEngine destroyed the passed in RAT
+    /// </summary>
+    /// <param name="indexOfMemory">Index of the target memory</param>
     void CalculatorManager::MemorizedNumberSelect(_In_ unsigned int indexOfMemory)
     {
         if (m_currentCalculatorEngine->FInErrorState())
@@ -791,7 +791,7 @@ namespace CalculationManager
 
     bool CalculatorManager::IsEngineRecording()
     {
-        return m_currentCalculatorEngine->FInRecordingState() ? true : false;
+        return m_currentCalculatorEngine->FInRecordingState();
     }
 
     void CalculatorManager::SetInHistoryItemLoadMode(_In_ bool isHistoryItemLoadMode)
